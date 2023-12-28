@@ -30,7 +30,7 @@ public abstract class Character extends Entity implements IMovable, IFeelable, I
 
   public abstract void moveTo(Entity obj);
 
-  public abstract void grab(Item obj);
+  public abstract void grab(Item obj) throws OwnershipException;
 
   public Item getItemInHand() {
     return this.itemInHand;

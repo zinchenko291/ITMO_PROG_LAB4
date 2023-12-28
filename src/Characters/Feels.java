@@ -5,7 +5,7 @@ public enum Feels {
   SCARY("дрогнул губой"),
   SAD("надулся"),
   RAGE("взревела от бешенства"),
-  NORMAL("Нормально");
+  NORMAL("нормально");
 
   private final String feel;
 

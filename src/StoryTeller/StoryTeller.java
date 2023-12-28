@@ -3,6 +3,7 @@ package StoryTeller;
 import Characters.Feels;
 import Characters.FrenBok;
 import Characters.Karlson;
+import Characters.OwnershipException;
 import Items.Container;
 import Items.Item;
 
@@ -24,9 +25,13 @@ public class StoryTeller {
     System.out.println(karlson.getState());
     karlson.moveTo(kitchenHob);
     System.out.println(karlson.getState());
-    karlson.grabFrom(fryingPan);
-    System.out.println(karlson.getState());
-    if (fryingPan.getOwner() == frenBok) {
+    try {
+      karlson.grabFrom(fryingPan);
+      System.out.println(karlson.getState());
+      frenBok.setFeel(Feels.NORMAL);
+      System.out.println(frenBok.getState());
+    } catch (OwnershipException e) {
+      System.out.println(e.getMessage());
       System.out.println("Вот этого ему не следовало делать");
       frenBok.setFeel(Feels.RAGE);
       System.out.println(frenBok.getState());
@@ -36,9 +41,6 @@ public class StoryTeller {
       System.out.println(frenBok.getState());
       frenBok.pushCharacterBehindItem(door);
       System.out.println(frenBok.getState());
-    } else {
-      frenBok.setFeel(Feels.NORMAL);
-      System.out.println(frenBok);
     }
   }
 }

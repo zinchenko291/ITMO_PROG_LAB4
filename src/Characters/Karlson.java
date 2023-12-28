@@ -27,12 +27,15 @@ public class Karlson extends Character implements IGrabbable {
   }
 
   @Override
-  public void grab(Item obj) {
+  public void grab(Item obj) throws OwnershipException {
     this.itemInHand = obj;
     this.setState(String.format("%s взял %s", this.getGender(), obj));
+    if (obj.getOwner() != this && obj.getOwner() != null) {
+      throw new OwnershipException(String.format("Предмет %s принадлежит %s, а не %s", obj.getName(), obj.getOwner().getName(), this.getName()));
+    }
   }
 
-  public void grabFrom(Container container) {
+  public void grabFrom(Container container) throws OwnershipException {
     this.grab(container.getInnerItem());
     this.setState(String.format("%s взял одну %s из %s", this.getName(), container.getInnerItem(), container));
   }
