@@ -4,7 +4,7 @@ import Entity.Entity;
 import Items.Container;
 import Items.Item;
 
-public class Karlson extends Character implements IGrabbable {
+public class Karlson extends Character implements IGrabbable, IFlyable {
   public Karlson() {
     super("Кралсон", Gender.MAN);
   }
@@ -15,15 +15,14 @@ public class Karlson extends Character implements IGrabbable {
   }
 
   @Override
-  public void setFeel(Feels feel) {
-    this.feel = feel;
-    this.setState(String.format("%s %s", this.getName(), feel));
-  }
-
-  @Override
   public void moveTo(Entity obj) {
     this.setPosition(obj);
     this.setState(String.format("%s сделал шаг к %s", this.getGender(), obj));
+  }
+
+  public void flyTo(Entity obj) {
+    this.moveTo(obj);
+    this.setState(String.format("%s подлетел к %s", this.getGender(), obj));
   }
 
   @Override
@@ -43,5 +42,9 @@ public class Karlson extends Character implements IGrabbable {
   @Override
   public String getGrabbablePart() {
     return "шиворот";
+  }
+
+  public void stomp() {
+    this.setState(String.format("%s топнул ногой", this.getName()));
   }
 }

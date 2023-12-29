@@ -6,6 +6,23 @@ import Items.Item;
 import java.util.Objects;
 
 public abstract class Character extends Entity implements IMovable, IFeelable, ICanTake {
+
+  public enum Gender {
+    MAN("Он"),
+    WOMAN("Она");
+
+    private final String gender;
+
+    Gender(String gender) {
+      this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+      return gender;
+    }
+  }
+
   private final Gender gender;
   private Entity position;
   private String currentState = "";
@@ -26,29 +43,32 @@ public abstract class Character extends Entity implements IMovable, IFeelable, I
     return this.gender.toString();
   }
 
-  public abstract void setFeel(Feels feel);
+  public final void setFeel(Feels feel) {
+    this.feel = feel;
+    this.setState(String.format("%s %s", this.getName(), feel));
+  }
 
   public abstract void moveTo(Entity obj);
 
   public abstract void grab(Item obj) throws OwnershipException;
 
-  public Item getItemInHand() {
+  public final Item getItemInHand() {
     return this.itemInHand;
   }
 
-  public Entity getPosition() {
+  public final Entity getPosition() {
     return this.position;
   }
 
-  protected void setPosition(Entity obj) {
+  protected final void setPosition(Entity obj) {
     this.position = obj;
   }
 
-  public String getState() {
+  public final String getState() {
     return this.currentState;
   }
 
-  protected void setState(String state) {
+  protected final void setState(String state) {
     this.currentState = state;
   }
 
@@ -56,7 +76,6 @@ public abstract class Character extends Entity implements IMovable, IFeelable, I
   public String toString() {
     return this.getName();
   }
-
 
   @Override
   public boolean equals(Object o) {
