@@ -1,11 +1,12 @@
 package Characters;
 
 public enum Feels {
-  ANGRY("злиться"),
+  ANGRY("злой как чёрт"),
   SCARY("дрогнул губой"),
   SAD("надулся"),
   RAGE("взревела от бешенства"),
-  NORMAL("Нормально");
+  NORMAL("нормально"),
+  DEAD_INSIDE("был просто в отчаянии");
 
   private final String feel;
 
