@@ -43,7 +43,7 @@ public class StoryTeller {
       System.out.println(frenBok.getState());
       malysh.setFeel(Feels.DEAD_INSIDE);
       System.out.println(malysh.getState());
-      malysh.mouth.speak(null);
+      malysh.speak(null);
       System.out.println(malysh.getState());
       door.closeDoor();
       karlson.moveTo(door);
