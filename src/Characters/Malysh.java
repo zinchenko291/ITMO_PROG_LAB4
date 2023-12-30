@@ -4,18 +4,30 @@ import Entity.Entity;
 import Items.Item;
 
 public class Malysh extends Character {
-  public Mouth mouth = new Mouth();
+  private final Mouth mouth = new Mouth(32);
   public Malysh() {
-    super("Малыш", Gender.MAN ,Feels.NORMAL);
+    super("Малыш", Gender.MAN, Feels.NORMAL);
   }
-  public class Mouth {
+  private class Mouth {
+    private final int numsOfTeeth;
+    Mouth(int numsOfTeeth) {
+      this.numsOfTeeth = numsOfTeeth;
+    }
     public void speak(String speech) {
       if (speech == null) {
         Malysh.this.setState(String.format("%s ничего не сказал", Malysh.this.getGender()));
         return;
       }
+      if (numsOfTeeth < 8) {
+        Malysh.this.setState(String.format("%s что-то пробормотал", Malysh.this.getGender()));
+        return;
+      }
       Malysh.this.setState(String.format("%s сказал: \"%s\"", Malysh.this.getName(), speech));
     }
+  }
+
+  public void speak(String speach) {
+    this.mouth.speak(speach);
   }
 
   @Override

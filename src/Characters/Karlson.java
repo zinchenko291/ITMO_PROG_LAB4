@@ -90,12 +90,7 @@ public class Karlson extends Character implements IGrabbable, IFlyable {
         })
       };
 
-      int minPath = Integer.MAX_VALUE;
-      for (Path path: paths) {
-        minPath = Math.min(path.getResult(), minPath);
-      }
-
-      return minPath;
+      return Arrays.stream(paths).map(Path::getResult).min(Integer::compare).get();
     }
   }
 
