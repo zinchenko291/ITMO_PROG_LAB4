@@ -1,6 +1,5 @@
 package Characters;
 
-import Annotations.ValidLength;
 import Entity.Entity;
 import Items.Item;
 
@@ -26,8 +25,6 @@ public abstract class Character extends Entity implements IMovable, IFeelable, I
 
   private final Gender gender;
   private Entity position;
-
-  @ValidLength
   private String currentState = "";
   protected Feels feel;
   protected Item itemInHand;
@@ -65,7 +62,6 @@ public abstract class Character extends Entity implements IMovable, IFeelable, I
 
   protected final void setPosition(Entity obj) {
     this.position = obj;
-    this.validateFields();
   }
 
   public final String getState() {
@@ -74,7 +70,6 @@ public abstract class Character extends Entity implements IMovable, IFeelable, I
 
   protected final void setState(String state) {
     this.currentState = state;
-    this.validateFields();
   }
 
   @Override
@@ -93,35 +88,5 @@ public abstract class Character extends Entity implements IMovable, IFeelable, I
   @Override
   public int hashCode() {
     return Objects.hash(this.name, this.gender);
-  }
-
-  private void validateFields() {
-    for (java.lang.reflect.Field field : Character.class.getDeclaredFields()) {
-      if (field.isAnnotationPresent(ValidLength.class)) {
-        String value = getValueForField(this, field);
-        if (value.length() < 3 || value.length() > 20) {
-          setValueForField(this, field, "unknown");
-        }
-      }
-    }
-  }
-
-  private static String getValueForField(Object obj, java.lang.reflect.Field field) {
-    try {
-      field.setAccessible(true);
-      return (String) field.get(obj);
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-  private static void setValueForField(Object obj, java.lang.reflect.Field field, String value) {
-    try {
-      field.setAccessible(true);
-      field.set(obj, value);
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    }
   }
 }
